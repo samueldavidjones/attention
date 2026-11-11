@@ -1,0 +1,592 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Cognition and Development Seminar Attention Test Battery</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: one plain column — task list → instructions → full-screen task → results table. */
+:root{--bg:#ffffff;--fg:#1b1b1b;--muted:#666a70;--line:#dcdde0;--accent:#1f5bd6;--soft:#f4f5f6;--warn:#8a5a00;
+  --c1:#1f5bd6;--c2:#c25412;--c3:#2b8a4f;--c4:#7b4cb3;
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141516;--fg:#e8e8e8;--muted:#a0a4aa;--line:#33363a;--accent:#7aa7ff;--soft:#1d1f21;--warn:#e7b85c;--c1:#7aa7ff;--c2:#f0975a;--c3:#6fd197;--c4:#c39cf0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141516;--fg:#e8e8e8;--muted:#a0a4aa;--line:#33363a;--accent:#7aa7ff;--soft:#1d1f21;--warn:#e7b85c;--c1:#7aa7ff;--c2:#f0975a;--c3:#6fd197;--c4:#c39cf0;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:16px;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 60px}
+h1{font-size:1.7rem;margin:0 0 6px;line-height:1.2;text-wrap:balance}
+h2{font-size:1.1rem;margin:28px 0 8px}
+p{margin:0 0 10px}
+.muted{color:var(--muted)}
+.small{font-size:.88rem}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn{border:1px solid var(--line);background:var(--bg);padding:7px 14px;border-radius:5px}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600}
+.btn:disabled{opacity:.5;cursor:default}
+.link{border:0;background:none;padding:0;color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.settings{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin:16px 0 4px;font-size:.92rem}
+.settings input[type=text]{font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--fg);width:120px}
+.settings label{display:inline-flex;gap:6px;align-items:center}
+ul.tasks{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+ul.tasks li{border-bottom:1px solid var(--line)}
+ul.tasks button{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;width:100%;text-align:left;background:none;border:0;padding:11px 4px}
+ul.tasks button:hover{background:var(--soft)}
+.tname{font-weight:600}
+.tsub{grid-column:1;color:var(--muted);font-size:.88rem}
+.tside{grid-row:1/span 2;grid-column:2;align-self:center;color:var(--muted);font-size:.85rem;text-align:right;font-variant-numeric:tabular-nums}
+.done{color:var(--c3)}
+ol.steps{padding-left:1.3em;margin:0 0 12px}
+ol.steps li{margin-bottom:5px}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:.82rem}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
+.tablewrap{overflow-x:auto}
+kbd{font-family:var(--mono);font-size:.85rem;border:1px solid var(--line);border-radius:3px;padding:1px 6px;background:var(--soft)}
+.warn{color:var(--warn)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+.chart svg{width:100%;max-width:600px;height:auto;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.85rem;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:5px;vertical-align:0}
+textarea.dump{width:100%;min-height:160px;font-family:var(--mono);font-size:.75rem;border:1px solid var(--line);background:var(--soft);color:var(--fg);padding:8px;border-radius:4px}
+details summary{cursor:pointer;color:var(--muted);font-size:.9rem}
+.notes{margin-top:30px;font-size:.88rem;color:var(--muted)}
+/* task screen: colours set per task to match the original display */
+#v-run{position:fixed;inset:0;z-index:50;display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:#000;color:#fff;font-family:var(--font);user-select:none;-webkit-user-select:none;touch-action:manipulation;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:max(10px,env(safe-area-inset-bottom,0px));padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+.runbar{display:flex;gap:12px;align-items:center;padding:8px max(16px,env(safe-area-inset-left,0px));font-size:.75rem;opacity:.55;font-variant-numeric:tabular-nums}
+.runbar button{margin-left:auto;background:transparent;border:1px solid currentColor;border-radius:4px;padding:2px 8px;font-size:.75rem}
+#stage{width:100%;height:100%;display:block}
+#pad{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:8px 12px 2px;min-height:12px}
+.pk{background:transparent;color:inherit;border:1px solid currentColor;border-radius:6px;min-width:84px;min-height:50px;padding:4px 12px;display:grid;place-items:center;line-height:1.2;opacity:.75}
+.pk.wide{min-width:min(300px,80vw)}
+.pk.sm{min-width:42px;min-height:44px;padding:4px 6px}
+.pk .ps{font-size:.68rem;opacity:.7}
+.pk.hit{opacity:1;background:rgba(127,127,127,.3)}
+.pk.col{border-width:2px;border-color:var(--pk)}
+body.phone .pk .ps{display:none}
+body.phone #pad{gap:6px;padding:6px max(10px,env(safe-area-inset-left,0px)) 4px}
+body.phone .pk{flex:1 1 0;min-width:0;max-width:220px;min-height:56px;font-size:1.05rem;font-weight:600;border-radius:10px;opacity:.9}
+body.phone .pk.wide{flex:1 1 auto;max-width:440px}
+body.phone .pk.sm{flex:1 0 38px;max-width:64px;min-height:50px;padding:0;font-size:1rem}
+body.phone .runbar{font-size:.8rem;padding-block:6px}
+body.phone .runbar button{font-size:.85rem;padding:6px 16px;border-radius:6px}
+@media (max-width:600px){
+ .tablewrap thead{display:none}
+ .tablewrap tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 14px;padding:10px 0;border-bottom:1px solid var(--line)}
+ .tablewrap td{border:0;padding:0}
+ .tablewrap td.num{text-align:right}
+ .tablewrap td.muted{grid-column:1/-1;font-size:.85rem}
+ .tablewrap td.muted:empty{display:none}
+}
+@media (max-width:600px){#i-start,#i-quick{width:100%;padding-block:12px;font-size:1.02rem}}
+body.phone #v-run{-webkit-touch-callout:none}
+#rotate{display:none;position:fixed;inset:0;z-index:70;background:#000;color:#fff;align-items:center;justify-content:center;text-align:center;padding:24px;font-size:1.2rem;line-height:1.5}
+@media (orientation:portrait){body.phone.running #rotate{display:flex}}
+.device{border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:16px 0;background:var(--soft)}
+.device .row{margin:8px 0 0}
+</style>
+
+<main class="wrap">
+  <section id="v-menu">
+    <h1 style="font-size:clamp(1.15rem,5vw,1.7rem)"><span style="white-space:nowrap">Cognition and Development Seminar</span><br>Attention Test Battery</h1>
+    <div id="device"></div>
+    <div id="lists">
+    <p class="muted" style="margin-top:16px">Choose a task to see its instructions.</p>
+    <h2>Visual</h2><ul class="tasks" id="list-vis"></ul>
+    <h2>Auditory</h2><ul class="tasks" id="list-aud"></ul>
+    </div>
+  </section>
+  <section id="v-instr" hidden></section>
+  <section id="v-result" hidden></section>
+</main>
+
+<div id="rotate" role="alert">Turn your device sideways (landscape) to continue.</div>
+<div id="v-run" hidden>
+  <div class="runbar"><span id="run-name"></span><span id="run-prog"></span><button type="button" id="run-stop">Stop (Esc)</button></div>
+  <canvas id="stage"></canvas>
+  <div id="pad"></div>
+</div>
+
+<script>
+/* ---------- utilities ---------- */
+const $=s=>document.querySelector(s);
+const S={quick:false,pid:''};
+const Q=(f,q)=>S.quick?q:f;
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const ri=(a,b)=>Math.floor(rnd(a,b+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const fin=a=>a.filter(Number.isFinite);
+const mean=a=>{a=fin(a);return a.length?a.reduce((s,x)=>s+x,0)/a.length:NaN};
+const sdv=a=>{a=fin(a);if(a.length<2)return NaN;const m=mean(a);return Math.sqrt(a.reduce((s,x)=>s+(x-m)**2,0)/(a.length-1))};
+const r0=x=>Number.isFinite(x)?Math.round(x):null;
+const fms=x=>Number.isFinite(x)?Math.round(x)+' ms':'–';
+const fsg=x=>Number.isFinite(x)?(Math.round(x)>0?'+':Math.round(x)<0?'−':'')+Math.abs(Math.round(x))+' ms':'–';
+const fpc=x=>Number.isFinite(x)?Math.round(x*100)+'%':'–';
+const fpts=x=>Number.isFinite(x)?(Math.round(x*100)>0?'+':Math.round(x*100)<0?'−':'')+Math.abs(Math.round(x*100))+' pts':'–';
+const f1=(x,u='')=>Number.isFinite(x)?(Math.round(x*10)/10).toFixed(1).replace('-','−')+u:'–';
+const f2=x=>Number.isFinite(x)?x.toFixed(2).replace('-','−'):'–';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function slope(xs,ys){const p=xs.map((x,i)=>[x,ys[i]]).filter(([x,y])=>Number.isFinite(x)&&Number.isFinite(y));if(p.length<2)return NaN;const mx=mean(p.map(q=>q[0])),my=mean(p.map(q=>q[1]));let n=0,d=0;for(const[x,y]of p){n+=(x-mx)*(y-my);d+=(x-mx)**2}return d?n/d:NaN}
+function probit(p){const a=[-39.69683028665376,220.9460984245205,-275.9285104469687,138.357751867269,-30.66479806614716,2.506628277459239],b=[-54.47609879822406,161.5858368580409,-155.6989798598866,66.80131188771972,-13.28068155288572],c=[-.007784894002430293,-.3223964580411365,-2.400758277161838,-2.549732539343734,4.374664141464968,2.938163982698783],d=[.007784695709041462,.3224671290700398,2.445134137142996,3.754408661907416],pl=.02425;let q,r;if(p<pl){q=Math.sqrt(-2*Math.log(p));return(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}if(p>1-pl){q=Math.sqrt(-2*Math.log(1-p));return-(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}q=p-.5;r=q*q;return(((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1)}
+function rareSeq(n,counts,lead){for(;;){const s=Array(n).fill(0);let ok=true;for(const[val,k]of counts){let c=0,g=0;while(c<k&&g<50000){g++;const i=ri(lead,n-1);if(!s[i]&&!s[i-1]&&!s[i+1]){s[i]=val;c++}}if(c<k){ok=false;break}}if(ok)return s}}
+
+/* ---------- engine: frames, timers, responses, abort ---------- */
+class Stop extends Error{}
+const R={running:false,aborted:false,pending:new Set(),presses:[],waiter:null,keyHook:null,onInput:null,abortP:null,abortRej:null};
+const nowOf=e=>{const t=e&&e.timeStamp;return(t&&t>0&&t<performance.now()+1e5)?t:performance.now()};
+function check(){if(R.aborted)throw new Stop()}
+function wait(ms){check();return new Promise((res,rej)=>{const o={rej};o.id=setTimeout(()=>{R.pending.delete(o);res()},ms);R.pending.add(o)})}
+function frame(){check();return new Promise((res,rej)=>{const o={rej,raf:1};o.id=requestAnimationFrame(ts=>{R.pending.delete(o);res(ts)});R.pending.add(o)})}
+async function showAt(t,fn){let ts;do{ts=await frame()}while(ts<t-8);if(fn)fn();return ts}
+const show=fn=>showAt(0,fn);
+async function until(t,tick){while(performance.now()<t-6){await frame();if(tick)tick()}}
+function race(p){return Promise.race([p,R.abortP])}
+function waitKey(keys,timeout,t0){check();const base=t0??performance.now();return new Promise((res,rej)=>{let to=null;const done=()=>{if(to)clearTimeout(to);R.waiter=null};R.waiter={keys,res:(k,t)=>{done();res({key:k,rt:t-base,t})},rej:e=>{done();rej(e)}};if(timeout!=null)to=setTimeout(()=>{done();res({key:null,rt:null,t:null})},Math.max(0,timeout-(performance.now()-base)))})}
+function input(k,t){if(!R.running)return;if(R.keyHook&&R.keyHook(k,t))return;R.presses.push({key:k,t});if(R.waiter&&R.waiter.keys.includes(k))R.waiter.res(k,t);if(R.onInput)R.onInput(k,t)}
+function stopTask(){if(!R.running||R.aborted)return;R.aborted=true;for(const o of R.pending){o.raf?cancelAnimationFrame(o.id):clearTimeout(o.id);o.rej(new Stop())}R.pending.clear();if(R.waiter)R.waiter.rej(new Stop());if(R.abortRej)R.abortRej(new Stop());try{speechSynthesis.cancel()}catch(e){}resetMaster()}
+document.addEventListener('keydown',e=>{if(!R.running)return;if(e.key==='Escape'){stopTask();return}if(e.repeat)return;let k=e.key.length===1?e.key.toLowerCase():e.key;if(k===' ')k='space';if(k==='space'||k==='Enter'||k==='Backspace'||k==='Tab')e.preventDefault();input(k,nowOf(e))});
+$('#pad').addEventListener('pointerdown',e=>{const b=e.target.closest('.pk');if(!b)return;e.preventDefault();b.classList.add('hit');setTimeout(()=>b.classList.remove('hit'),120);input(b.dataset.key,nowOf(e))});
+$('#run-stop').addEventListener('click',()=>stopTask());
+function setPad(btns){const p=$('#pad');p.innerHTML='';for(const b of btns){const el=document.createElement('button');el.type='button';el.tabIndex=-1;el.className='pk'+(b.wide?' wide':'')+(b.sm?' sm':'');el.dataset.key=b.key;el.innerHTML=`<span>${b.label}</span>${b.sub?`<span class="ps">${b.sub}</span>`:''}`;if(b.color){el.style.setProperty('--pk',b.color);el.classList.add('col')}p.append(el)}}
+function progress(i,n,extra=''){$('#run-prog').textContent=`${extra?extra+' · ':''}${Math.min(i+1,n)} / ${n}`}
+
+/* ---------- canvas ---------- */
+const cv=$('#stage'),cx=cv.getContext('2d');let W=0,H=0,U=0;
+const SC={bg:'#000000',ink:'#ffffff',dim:'#8a8a8a'};
+const FONT="Helvetica, Arial, sans-serif";
+function setStage(bg,ink,dim){SC.bg=bg;SC.ink=ink;SC.dim=dim;const v=$('#v-run');v.style.background=bg;v.style.color=ink}
+function sizeCanvas(){const r=cv.getBoundingClientRect(),dpr=window.devicePixelRatio||1;cv.width=Math.max(1,Math.round(r.width*dpr));cv.height=Math.max(1,Math.round(r.height*dpr));cx.setTransform(dpr,0,0,dpr,0,0);W=r.width;H=r.height;U=Math.min(W,H)}
+window.addEventListener('resize',()=>{if(R.running)sizeCanvas()});
+function clear(){cx.fillStyle=SC.bg;cx.fillRect(0,0,W,H)}
+const TU=()=>Math.max(U,400);
+function txt(s,{size=.1,color=SC.ink,x=W/2,y=H/2,weight=700,maxW=W*.92}={}){let px=Math.max(size*TU(),14);cx.font=`${weight} ${px}px ${FONT}`;const w=cx.measureText(s).width;if(w>maxW){px*=maxW/w;cx.font=`${weight} ${px}px ${FONT}`}cx.fillStyle=color;cx.textAlign='center';cx.textBaseline='middle';cx.fillText(s,x,y)}
+const PHONE_TXT={
+'Press Space as soon as you see the target. On a few trials there is no target. Do not press on those.':'Tap the button as soon as you see the target. On a few trials there is no target. Do not tap on those.',
+'Use D for red, F for green, J for blue and K for yellow.':'Tap the button with the matching colour.',
+'Press Space for every digit except 3.':'Tap the button for every digit except 3.',
+'When a 3 appears, do not press.':'When a 3 appears, do not tap.',
+'Press J if the target is there and F if it is not.':'Tap Present or Absent.',
+'Report block: after each stream, type the white letter, then say whether there was an X.':'Report block: after each stream, tap the white letter, then say whether there was an X.',
+'Listen to three digits, then type them in order and press Enter.':'Listen to three digits in noise, then tap them in order and tap Submit.',
+'Judge the pitch of the voice: F for low, J for high.':'Judge the pitch of the voice: tap Low voice or High voice.',
+'Press F if the digit is odd and J if it is even.':'Tap Odd or Even.',
+'Press Space for each slightly higher beep in that ear.':'Tap the button for each slightly higher beep in that ear.',
+'Click the answer, or type it and press Enter.':'Tap the answer.',
+'Press Space when the target appears':'Tap when the target appears',
+'D red · F green · J blue · K yellow':'Tap the matching colour',
+'Practice: press Space for every digit except 3':'Practice: tap for every digit except 3',
+'Y = yes · N = no':'Tap X seen or No X',
+'Enter to submit':'Tap Submit',
+'Type the three digits':'Tap the three digits',
+'Type the three digits you hear':'Tap the three digits you hear',
+'F low · J high':'Tap Low voice or High voice',
+'Odd / even: F odd · J even':'Odd or even? Tap the button',
+'Press Space for higher beeps in that ear only':'Tap for higher beeps in that ear only',
+'J present · F absent':'Tap Present or Absent',
+'After each stream: type the white letter, then Y/N for the X':'After each stream: tap the white letter, then say if there was an X',
+'After each stream: Y if there was an X, N if not':'After each stream: say whether there was an X'};
+const tx=t=>S.device==='phone'&&PHONE_TXT[t]||t;
+function lines(arr){const L=arr.map(l=>typeof l==='string'?{t:tx(l)}:{...l,t:tx(l.t)});const hs=L.map(l=>Math.max((l.size||.05)*TU(),15)*1.6);let y=H/2-hs.reduce((a,b)=>a+b,0)/2;L.forEach((l,i)=>{y+=hs[i]/2;txt(l.t,{size:l.size||.05,color:l.color||SC.ink,weight:l.weight||400,y});y+=hs[i]/2})}
+function fixation(){txt('+',{size:.06,weight:400})}
+function blankFix(){clear();fixation()}
+async function note(msg,ms=500){await show(()=>{clear();txt(msg,{size:.05,weight:400})});await wait(ms)}
+async function screen(arr,btn='Continue'){const keep=$('#pad').innerHTML;setPad([{key:'space',label:btn,sub:'Space',wide:true}]);await show(()=>{clear();lines(arr)});await waitKey(['space','Enter'],null);$('#pad').innerHTML=keep;await show(clear);await wait(400)}
+
+/* ---------- audio ---------- */
+let AC=null,master=null,pinkBuf=null;
+function initAudio(){if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(!C)throw new Error('This browser has no Web Audio support.');AC=new C()}if(AC.state!=='running')AC.resume();if(!master)resetMaster()}
+function resetMaster(){if(!AC)return;if(master){try{master.disconnect()}catch(e){}}master=AC.createGain();master.connect(AC.destination)}
+function toPerf(t){if(AC.getOutputTimestamp){const o=AC.getOutputTimestamp();if(o&&o.performanceTime)return o.performanceTime+(t-o.contextTime)*1000}return performance.now()+(t-AC.currentTime)*1000}
+function envl(g,at,dur,peak,ramp=.005){g.gain.setValueAtTime(0,at);g.gain.linearRampToValueAtTime(peak,at+ramp);g.gain.setValueAtTime(peak,at+dur-ramp);g.gain.linearRampToValueAtTime(0,at+dur)}
+function tone({f,dur,at,pan=0,gain=.25,ramp=.005}){const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f;envl(g,at,dur,gain,ramp);o.connect(g);if(pan&&AC.createStereoPanner){const p=AC.createStereoPanner();p.pan.value=pan;g.connect(p);p.connect(master)}else g.connect(master);o.start(at);o.stop(at+dur+.02)}
+function pink(){if(pinkBuf)return pinkBuf;const n=AC.sampleRate*3,b=AC.createBuffer(1,n,AC.sampleRate),d=b.getChannelData(0);let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0,ss=0;for(let i=0;i<n;i++){const w=Math.random()*2-1;b0=.99886*b0+w*.0555179;b1=.99332*b1+w*.0750759;b2=.969*b2+w*.153852;b3=.8665*b3+w*.3104856;b4=.55*b4+w*.5329522;b5=-.7616*b5-w*.016898;const v=b0+b1+b2+b3+b4+b5+b6+w*.5362;b6=w*.115926;d[i]=v;ss+=v*v}const rms=Math.sqrt(ss/n);for(let i=0;i<n;i++)d[i]/=rms;pinkBuf=b;return b}
+function noiseOn(level){const s=AC.createBufferSource();s.buffer=pink();s.loop=true;const g=AC.createGain(),t=AC.currentTime;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(level,t+.1);s.connect(g);g.connect(master);s.start(t,Math.random()*2);return()=>{try{const t2=AC.currentTime;g.gain.cancelScheduledValues(t2);g.gain.setValueAtTime(level,t2);g.gain.linearRampToValueAtTime(0,t2+.1);s.stop(t2+.15)}catch(e){}}}
+function novelSound(at){const k=ri(0,3),dur=.2,g=AC.createGain();g.connect(master);
+  if(k===0){envl(g,at,dur,.35,.01);const s=AC.createBufferSource();s.buffer=pink();const bp=AC.createBiquadFilter();bp.type='bandpass';bp.frequency.value=rnd(700,4500);bp.Q.value=1.4;s.connect(bp);bp.connect(g);s.start(at,rnd(0,2));s.stop(at+dur+.02);return'noise'}
+  if(k===1){envl(g,at,dur,.14,.01);const o=AC.createOscillator();o.type='sawtooth';const a=rnd(250,900),b=Math.random()<.5?a*rnd(2.5,4):a/rnd(2,3);o.frequency.setValueAtTime(a,at);o.frequency.exponentialRampToValueAtTime(b,at+dur);o.connect(g);o.start(at);o.stop(at+dur+.02);return'sweep'}
+  if(k===2){envl(g,at,dur,.1,.01);for(let i=0;i<3;i++){const o=AC.createOscillator();o.type='triangle';o.frequency.value=rnd(350,2600);o.connect(g);o.start(at);o.stop(at+dur+.02)}return'chord'}
+  envl(g,at,dur,.1,.01);const o=AC.createOscillator(),l=AC.createOscillator(),lg=AC.createGain();o.type='square';o.frequency.value=rnd(220,800);l.frequency.value=rnd(14,40);lg.gain.value=o.frequency.value*.35;l.connect(lg);lg.connect(o.frequency);o.connect(g);o.start(at);l.start(at);o.stop(at+dur+.02);l.stop(at+dur+.02);return'warble'}
+
+/* ---------- speech ---------- */
+let VOICE=null;
+function loadVoices(){return new Promise(res=>{if(!('speechSynthesis' in window))return res(null);const choose=()=>{const vs=speechSynthesis.getVoices();if(!vs.length)return null;return vs.find(v=>/en[-_]GB/i.test(v.lang)&&v.localService)||vs.find(v=>/^en/i.test(v.lang)&&v.localService)||vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||vs[0]};const v=choose();if(v){VOICE=v;return res(v)}speechSynthesis.addEventListener('voiceschanged',()=>{const c=choose();if(c){VOICE=c;res(c)}},{once:true});setTimeout(()=>{VOICE=choose();res(VOICE)},1500)})}
+function say(text,{pitch=1,rate=1,volume=1}={}){if(R.running)check();const u=new SpeechSynthesisUtterance(text);if(VOICE){u.voice=VOICE;u.lang=VOICE.lang}else u.lang='en-GB';u.pitch=pitch;u.rate=rate;u.volume=volume;let rs,re;const started=new Promise(r=>rs=r),ended=new Promise(r=>re=r);u.onstart=()=>rs(performance.now());u.onend=()=>{rs(performance.now());re(performance.now())};u.onerror=()=>{rs(performance.now());re(performance.now())};speechSynthesis.speak(u);setTimeout(()=>rs(performance.now()),2000);setTimeout(()=>re(performance.now()),7000);return{started,ended}}
+async function needSpeech(){initAudio();await loadVoices();if(!('speechSynthesis' in window))throw new Error('This browser has no speech voice, so the task cannot run.')}
+
+/* ---------- tasks ---------- */
+const STROOP_COLS=[{n:'RED',c:'#ff3b30',k:'d'},{n:'GREEN',c:'#34c759',k:'f'},{n:'BLUE',c:'#3b82ff',k:'j'},{n:'YELLOW',c:'#ffd60a',k:'k'}];
+
+const TASKS={
+/* task 1 */
+posner:{mod:'vis',name:'Posner cueing task',mech:'Voluntary (endogenous) orienting',mins:[6,3],
+ about:'An arrow in the centre points left or right. It usually shows where the target will appear. A plus sign gives no clue. You press a key when the target appears.',
+ steps:['Keep your eyes on the centre of the screen. Move your attention, not your eyes.','An arrow points to where the target will probably appear. It is right most of the time.','A plus sign means the target could appear on either side.','Press Space as soon as you see the target. On a few trials there is no target. Do not press on those.'],
+ keys:[['Space','Target detected']],
+ method:['Arrow cues are correct on 80% of cued trials. About a third of trials have a neutral plus sign.','The target appears 1 second after the cue, in the left or right box.','About 10% of trials have no target (catch trials).','Benefit = neutral RT − valid RT. Cost = invalid RT − neutral RT.','Difference from the original: the original used light flashes at fixed positions; here a white square appears in a box.'],
+ async run(){setStage('#000000','#ffffff','#8a8a8a');
+  const L=[];const push=(n,o)=>{for(let i=0;i<n;i++)L.push({...o,side:i%2?'L':'R'})};
+  push(Q(64,32),{type:'valid'});push(Q(16,8),{type:'invalid'});push(Q(40,20),{type:'neutral'});push(Q(12,6),{type:'catch'});shuffle(L);
+  setPad([{key:'space',label:'Detect',sub:'Space',wide:true}]);
+  const s=.11*TU(),d=Math.min(.3*TU()*1.3,W*.33);
+  const arrow=dir=>{const a=.06*TU(),h=.025*TU();cx.strokeStyle='#ffffff';cx.fillStyle='#ffffff';cx.lineWidth=Math.max(2,U*.007);const sg=dir==='L'?-1:1;cx.beginPath();cx.moveTo(W/2-sg*a,H/2);cx.lineTo(W/2+sg*(a-h),H/2);cx.stroke();cx.beginPath();cx.moveTo(W/2+sg*a,H/2);cx.lineTo(W/2+sg*(a-h*1.4),H/2-h);cx.lineTo(W/2+sg*(a-h*1.4),H/2+h);cx.closePath();cx.fill()};
+  const draw=(cue,tgt)=>{clear();for(const[k,x]of[['L',W/2-d],['R',W/2+d]]){cx.lineWidth=1.5;cx.strokeStyle='#8f8f8f';cx.strokeRect(x-s/2,H/2-s/2,s,s);if(k===tgt){const q=.03*TU();cx.fillStyle='#ffffff';cx.fillRect(x-q/2,H/2-q/2,q,q)}}
+   if(cue==='L'||cue==='R')arrow(cue);else if(cue==='N')txt('+',{size:.09,weight:400});else{const q=.012*TU();cx.fillStyle='#ffffff';cx.fillRect(W/2-q/2,H/2-q/2,q,q)}};
+  await screen(['Press Space when the target appears','Follow the arrows with your attention, not your eyes'],'Start');const data=[];
+  for(let i=0;i<L.length;i++){const t=L[i];progress(i,L.length);
+   let cue;if(t.type==='valid')cue=t.side;else if(t.type==='invalid')cue=t.side==='L'?'R':'L';else if(t.type==='neutral')cue='N';else cue=pick(['L','R','N']);
+   const tg=t.type==='catch'?null:t.side;
+   await show(()=>draw(null,null));await wait(rnd(700,1000));R.presses=[];
+   const tc=await show(()=>draw(cue,null));const tt=await showAt(tc+1000,()=>draw(cue,tg));
+   const r=await waitKey(['space'],1000,tt);await show(()=>draw(null,null));
+   const early=R.presses.some(p=>p.key==='space'&&p.t<tt)||(r.key&&r.rt<100);
+   const correct=t.type==='catch'?!r.key&&!early:(!!r.key&&!early);
+   data.push({trial_type:t.type,cue:cue==='N'?'neutral':cue,target:tg||'none',responded:r.key?1:0,rt:t.type==='catch'?null:r0(r.rt),anticipation:early?1:0,correct:correct?1:0});
+   if(t.type==='catch'&&r.key)await note('No target on that trial');else if(t.type!=='catch'&&!r.key)await note('Too slow');else if(early)await note('Too early');
+   await wait(300)}
+  return data},
+ summarize(d){const ok=d.filter(x=>x.trial_type!=='catch'&&x.correct&&x.rt>=100);const m=v=>mean(ok.filter(x=>x.trial_type===v).map(x=>x.rt));const V=m('valid'),N=m('neutral'),I=m('invalid');const ct=d.filter(x=>x.trial_type==='catch');
+  return{headline:`benefit ${fsg(N-V)}, cost ${fsg(I-N)}`,rows:[
+   ['Benefit (plus sign − correct arrow)',fsg(N-V),''],
+   ['Cost (wrong arrow − plus sign)',fsg(I-N),''],
+   ['Overall effect (wrong − correct arrow)',fsg(I-V),''],
+   ['Mean RT: correct arrow / plus sign / wrong arrow',`${fms(V)} / ${fms(N)} / ${fms(I)}`,'Correct trials only.'],
+   ['Catch-trial false alarms',fpc(mean(ct.map(x=>x.responded))),`${ct.length} catch trials`]],
+   chart:{type:'bar',unit:'Mean detection RT (ms)',items:[{label:'Correct arrow',value:V,color:'var(--c3)'},{label:'Plus sign',value:N,color:'var(--c1)'},{label:'Wrong arrow',value:I,color:'var(--c2)'}]},
+   read:'Responses are usually faster after a correct arrow and slower after a wrong one, compared with the plus sign. This happens even when the eyes stay still.'}}},
+
+/* task 2 */
+stroop:{mod:'vis',name:'Colour–word Stroop task',mech:'Interference',mins:[2.5,1],
+ about:'Colour words are printed in coloured ink. The word and ink can match or clash. Some items are plain bars of colour. You name the ink colour.',
+ steps:['Name the ink colour. Ignore what the word says.','Some items are plain coloured bars. Name their colour too.','Use D for red, F for green, J for blue and K for yellow.','Be as quick and accurate as you can.'],
+ keys:[['D','Red'],['F','Green'],['J','Blue'],['K','Yellow']],
+ method:['Three conditions: clashing words, matching words, and plain colour bars.','Difference from the original: the original used cards of 100 items named aloud and timed as a whole. Here items appear one at a time and you press a key.','The original used five colours. Four are used here so the keys are manageable.'],
+ async run(){setStage('#000000','#ffffff','#8a8a8a');const reps=Q(6,3),L=[];STROOP_COLS.forEach((c,ci)=>{const others=STROOP_COLS.filter((_,j)=>j!==ci);for(let r=0;r<reps;r++){L.push({ink:ci,word:c.n,cond:'congruent'});L.push({ink:ci,word:'',cond:'colour patch'});L.push({ink:ci,word:others[r%3].n,cond:'incongruent'})}});shuffle(L);
+  setPad(STROOP_COLS.map(c=>({key:c.k,label:c.n[0]+c.n.slice(1).toLowerCase(),sub:c.k.toUpperCase(),color:c.c})));
+  await screen(['Report the INK colour','D red · F green · J blue · K yellow'],'Start');const data=[],keys=STROOP_COLS.map(c=>c.k);
+  for(let i=0;i<L.length;i++){const t=L[i];progress(i,L.length);await show(blankFix);await wait(500);await show(clear);await wait(100);const col=STROOP_COLS[t.ink].c;
+   const t0=await show(()=>{clear();if(t.word)txt(t.word,{size:.12,color:col});else{cx.fillStyle=col;const w=.36*TU(),h=.09*TU();cx.fillRect(W/2-w/2,H/2-h/2,w,h)}});
+   const r=await waitKey(keys,2500,t0);await show(clear);const correct=r.key===STROOP_COLS[t.ink].k;
+   data.push({condition:t.cond,word:t.word||'(patch)',ink:STROOP_COLS[t.ink].n,key:r.key,rt:r0(r.rt),correct:correct?1:0});if(!r.key)await note('Too slow');await wait(500)}
+  return data},
+ summarize(d){const ok=d.filter(x=>x.correct&&x.rt>=200);const m=c=>mean(ok.filter(x=>x.condition===c).map(x=>x.rt));const e=c=>1-mean(d.filter(x=>x.condition===c).map(x=>x.correct));const C=m('congruent'),N=m('colour patch'),I=m('incongruent');
+  return{headline:`interference ${fsg(I-N)}`,rows:[
+   ['Interference (clashing − colour bar)',fsg(I-N),''],
+   ['Facilitation (colour bar − matching)',fsg(N-C),''],
+   ['Mean RT: matching / colour bar / clashing',`${fms(C)} / ${fms(N)} / ${fms(I)}`,'Correct trials only.'],
+   ['Errors: matching / colour bar / clashing',`${fpc(e('congruent'))} / ${fpc(e('colour patch'))} / ${fpc(e('incongruent'))}`,'']],
+   chart:{type:'bar',unit:'Mean RT (ms)',items:[{label:'Matching',value:C,color:'var(--c3)'},{label:'Colour bar',value:N,color:'var(--c1)'},{label:'Clashing',value:I,color:'var(--c2)'}]},
+   read:'Clashing words are usually slower than plain colour bars (interference). Matching words are sometimes a little faster (facilitation). Interference is usually much bigger.'}}},
+
+/* task 3 */
+sart:{mod:'vis',name:'Sustained Attention to Response Task (SART)',mech:'Sustained attention',mins:[5,2],
+ about:'Digits 1–9 appear one at a time. You press for every digit except 3. The task is fast and repetitive.',
+ steps:['Press Space for every digit except 3.','When a 3 appears, do not press.','Speed and accuracy are equally important.','There are 18 practice trials first.'],
+ keys:[['Space','Every digit except 3']],
+ method:['225 trials: each digit appears 25 times in random order.','Each digit is shown for 250 ms, then a mask (circle with a cross) for 900 ms.','Digits appear in five sizes, as in the original.','18 practice trials first. White digits on black.'],
+ async run(){setStage('#000000','#ffffff','#8a8a8a');const pts=[48,72,94,100,120],sizes=pts.map(p=>p/120*.22);
+  const mask=()=>{clear();const r=.08*TU();cx.strokeStyle='#ffffff';cx.lineWidth=Math.max(2,U*.007);cx.beginPath();cx.arc(W/2,H/2,r,0,Math.PI*2);cx.stroke();const k=r*.72;cx.beginPath();cx.moveTo(W/2-k,H/2-k);cx.lineTo(W/2+k,H/2+k);cx.moveTo(W/2+k,H/2-k);cx.lineTo(W/2-k,H/2+k);cx.stroke()};
+  setPad([{key:'space',label:'Press',sub:'Space',wide:true}]);
+  const block=async(seq,label)=>{R.presses=[];const on=[],sz=[];let next=0;for(let i=0;i<seq.length;i++){progress(i,seq.length,label);const p=pick(pts);sz.push(p);const t=await showAt(next,()=>{clear();txt(String(seq[i]),{size:p/120*.22})});on.push(t);await showAt(t+250,mask);next=t+1150}await until(next);
+   return seq.map((dg,i)=>{const end=i+1<on.length?on[i+1]:on[i]+1150;const pr=R.presses.find(x=>x.key==='space'&&x.t>=on[i]&&x.t<end);const go=dg!==3;return{digit:dg,type:go?'go':'nogo',font_pt:sz[i],responded:pr?1:0,rt:pr?r0(pr.t-on[i]):null,correct:go?(pr?1:0):(pr?0:1)}})};
+  await screen(['Practice: press Space for every digit except 3'],'Start practice');
+  await block(shuffle([1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9]),'Practice');
+  const n=Q(25,10);let seq=[];for(let dg=1;dg<=9;dg++)for(let k=0;k<n;k++)seq.push(dg);shuffle(seq);
+  await screen(['Practice over','The main task now begins'],'Start');return await block(seq,'Main')},
+ summarize(d){const go=d.filter(x=>x.type==='go'),ng=d.filter(x=>x.type==='nogo');const rts=go.filter(x=>x.responded&&x.rt>=100).map(x=>x.rt);
+  const pre=flag=>{const out=[];d.forEach((x,i)=>{if(x.type==='nogo'&&x.responded===flag&&i>=4){const p=d.slice(i-4,i).filter(y=>y.type==='go'&&y.rt).map(y=>y.rt);if(p.length)out.push(mean(p))}});return mean(out)};
+  const pe=pre(1),pc=pre(0),com=ng.filter(x=>x.responded).length;
+  return{headline:`${com} of ${ng.length} no-go errors`,rows:[
+   ['Presses to the 3 (errors)',`${com} of ${ng.length}`,''],
+   ['Missed presses to other digits',`${go.filter(x=>!x.responded).length} of ${go.length}`,''],
+   ['Mean RT',fms(mean(rts)),`SD ${fms(sdv(rts))}`],
+   ['RT just before a press to 3',fms(pe),''],
+   ['RT just before a correct stop',fms(pc),'']],
+   chart:{type:'bar',unit:'Trials with a keypress (%)',yMax:100,items:[{label:'Other digits',value:mean(go.map(x=>x.responded))*100,color:'var(--c1)'},{label:'Digit 3',value:mean(ng.map(x=>x.responded))*100,color:'var(--c2)'}]},
+   read:'People often press for the 3 by mistake. Responses are often faster just before these mistakes.'}}},
+
+/* task 4 */
+search:{mod:'vis',name:'Visual search task',mech:'Visual search',mins:[4.5,2.5],
+ about:'You search displays of coloured letters for a target. In part 1 the target is a blue letter or an S. In part 2 the target is a green T. The other letters are brown Ts and green Xs.',
+ steps:['Part 1: look for a blue letter or an S.','Part 2: look for a green T.','Press J if the target is there and F if it is not.','Be as quick as you can without making mistakes.'],
+ keys:[['J','Target present'],['F','Target absent']],
+ method:['Other letters: brown Ts and green Xs, half of each.','Display sizes: 1, 5, 15 and 30 letters, as in the original.','The target is present on half the trials.','The two parts are run in separate blocks.'],
+ async run(){setStage('#ffffff','#000000','#777777');const BR='#8b4a1c',GR='#1f8a34',BL='#1c45d8';const reps=Q(8,4);
+  const gen=type=>{const L=[];for(const n of[1,5,15,30])for(const p of[1,0])for(let r=0;r<reps;r++)L.push({type,n,present:p});return shuffle(L)};
+  const make=(n,present,type)=>{const cols=6,rows=5,cw=Math.min(W*.9,U*1.25)/cols,ch=Math.min(H*.86,U*.9)/rows,x0=W/2-cw*cols/2,y0=H/2-ch*rows/2;const cells=shuffle([...Array(30).keys()]).slice(0,n);let tgt=null;
+   if(present)tgt=type==='conjunction'?{l:'T',c:GR}:(Math.random()<.5?{l:pick(['T','X']),c:BL}:{l:'S',c:pick([BR,GR])});
+   const kinds=shuffle([...Array(n)].map((_,i)=>i%2?{l:'T',c:BR}:{l:'X',c:GR}));if(tgt)kinds[0]=tgt;
+   return{items:cells.map((c,i)=>({...kinds[i],x:x0+(c%cols+.5)*cw+(Math.random()-.5)*cw*.3,y:y0+(Math.floor(c/cols)+.5)*ch+(Math.random()-.5)*ch*.3})),fs:Math.min(cw,ch)*.5,tgt}};
+  const draw=D=>{clear();cx.font=`700 ${D.fs}px ${FONT}`;cx.textAlign='center';cx.textBaseline='middle';for(const it of D.items){cx.fillStyle=it.c;cx.fillText(it.l,it.x,it.y)}};
+  setPad([{key:'f',label:'Absent',sub:'F'},{key:'j',label:'Present',sub:'J'}]);const data=[];
+  for(const[bi,type]of['feature','conjunction'].entries()){const L=gen(type);
+   await screen(type==='feature'?['Part 1: feature search','Target: any BLUE letter, or the letter S','J present · F absent']:['Part 2: conjunction search','Target: a GREEN T','J present · F absent'],'Start');
+   for(let i=0;i<L.length;i++){const t=L[i];progress(i,L.length,`Part ${bi+1}`);await show(blankFix);await wait(500);const D=make(t.n,t.present,type);
+    const t0=await show(()=>draw(D));const r=await waitKey(['f','j'],8000,t0);await show(clear);const correct=r.key===(t.present?'j':'f');
+    data.push({search:type,display_size:t.n,present:t.present,target:D.tgt?D.tgt.l+(D.tgt.c===BL?' blue':D.tgt.c===GR?' green':' brown'):'',key:r.key,rt:r0(r.rt),correct:correct?1:0});if(!correct)await note(r.key?'Error':'Too slow');await wait(400)}}
+  return data},
+ summarize(d){const ok=d.filter(x=>x.correct);const ns=[1,5,15,30];const m=(ty,n,p)=>mean(ok.filter(x=>x.search===ty&&x.display_size===n&&x.present===p).map(x=>x.rt));const sl=(ty,p)=>slope(ns,ns.map(n=>m(ty,n,p)));
+  return{headline:`slopes ${f1(sl('feature',1))} vs ${f1(sl('conjunction',1))} ms/item`,rows:[
+   ['Part 1 search time per extra letter (present / absent)',`${f1(sl('feature',1),' ms')} / ${f1(sl('feature',0),' ms')}`,''],
+   ['Part 2 search time per extra letter (present / absent)',`${f1(sl('conjunction',1),' ms')} / ${f1(sl('conjunction',0),' ms')}`,''],
+   ['Part 2: absent slope ÷ present slope',f2(sl('conjunction',0)/sl('conjunction',1)),''],
+   ['Accuracy',fpc(mean(d.map(x=>x.correct))),`${d.length} trials`]],
+   chart:{type:'line',unit:'Mean RT (ms)',xLabel:'Display size',xs:ns.map(String),series:[{name:'Part 1, present',values:ns.map(n=>m('feature',n,1)),color:'var(--c3)'},{name:'Part 1, absent',values:ns.map(n=>m('feature',n,0)),color:'var(--c1)'},{name:'Part 2, present',values:ns.map(n=>m('conjunction',n,1)),color:'var(--c2)'},{name:'Part 2, absent',values:ns.map(n=>m('conjunction',n,0)),color:'var(--c4)'}]},
+   read:'Part 1 targets are usually found equally fast however many letters there are. In part 2, search time usually goes up with each extra letter, and more steeply when the target is absent.'}}},
+
+/* task 5 */
+blink:{mod:'vis',name:'Attentional blink (RSVP)',mech:'Attention over time',mins:[7,4],
+ about:'Black letters flash in the centre of a grey screen, about 11 per second. One letter is white. Sometimes a black X follows it. In one block you report the white letter and whether there was an X. In the other block you only report the X.',
+ steps:['Keep your eyes on the centre.','Report block: after each stream, type the white letter, then say whether there was an X.','X-only block: ignore the white letter. Only say whether there was an X.','The blocks come in random order. You will be told which block is next.'],
+ keys:[['A–Z','White letter (experimental block)'],['Y / N','X present or not']],
+ method:['Each letter is shown for about 15 ms, then a blank. A new letter appears every 90 ms, as in the original.','7–15 letters come before the white letter and 8 after it.','The X appears 1–8 letters after the white letter on most trials.','The blink is the difference between the report block and the X-only block.'],
+ async run(){setStage('#808080','#000000','#303030');const LET='ABCDEFGHIJKLMNOPQRSTUVWYZ'.split('');const reps=Q(3,2);
+  const mk=()=>{const L=[];for(let lag=1;lag<=8;lag++)for(let r=0;r<reps;r++)L.push({lag});for(let r=0;r<Q(12,4);r++)L.push({lag:0});return shuffle(L)};
+  const order=shuffle(['experimental','control']);const data=[];
+  for(const[bi,cond]of order.entries()){const L=mk();
+   await screen(cond==='experimental'?[`Block ${bi+1} of 2`,'Remember the WHITE letter and watch for an X','After each stream: type the white letter, then Y/N for the X']:[`Block ${bi+1} of 2`,'IGNORE the white letter. Only watch for an X','After each stream: Y if there was an X, N if not'],'Start block');
+   for(let i=0;i<L.length;i++){const t=L[i];progress(i,L.length,cond==='experimental'?'Report block':'X-only block');
+    const pre=ri(7,15),len=pre+1+8;const items=[];let prev='';for(let k=0;k<len;k++){let c;do{c=pick(LET)}while(c===prev);items.push(c);prev=c}
+    const t1=items[pre];if(t.lag)items[pre+t.lag]='X';
+    await show(()=>{clear();txt('+',{size:.05,weight:400})});await wait(800);await show(clear);await wait(250);
+    const t0=await show(()=>{clear();txt(items[0],{size:.1,color:'#000000'})});
+    for(let k=0;k<len;k++){const on=k===0?t0:await showAt(t0+k*90,()=>{clear();txt(items[k],{size:.1,color:k===pre?'#ffffff':'#000000'})});await showAt(on+15,clear)}
+    await wait(300);let rep='';
+    if(cond==='experimental'){setPad(LET.concat(['X']).sort().map(c=>({key:c.toLowerCase(),label:c,sm:true})));await show(()=>{clear();lines(['Which letter was white?'])});const r=await waitKey('abcdefghijklmnopqrstuvwxyz'.split(''),null);rep=r.key.toUpperCase()}
+    setPad([{key:'n',label:'No X',sub:'N'},{key:'y',label:'X seen',sub:'Y'}]);await show(()=>{clear();lines(['Was there an X?','Y = yes · N = no'])});const r2=await waitKey(['y','n'],null);
+    data.push({condition:cond,lag:t.lag||'absent',probe_present:t.lag?1:0,target_letter:t1,target_position:pre+1,target_report:rep,target_correct:cond==='experimental'?(rep===t1?1:0):null,probe_report:r2.key==='y'?1:0,probe_correct:(r2.key==='y')===(t.lag>0)?1:0});
+    await show(clear);await wait(500)}}
+  return data},
+ summarize(d){const lags=[1,2,3,4,5,6,7,8];const det=(cond,l)=>{let r=d.filter(x=>x.condition===cond&&x.lag===l);if(cond==='experimental')r=r.filter(x=>x.target_correct===1);return mean(r.map(x=>x.probe_report))};
+  const E=lags.map(l=>det('experimental',l)),C=lags.map(l=>det('control',l));const fa=c=>mean(d.filter(x=>x.condition===c&&!x.probe_present).map(x=>x.probe_report));
+  return{headline:`blink ${fpts(mean([2,3,4,5].map(l=>C[l-1]-E[l-1])))}`,rows:[
+   ['Blink size, lags 2–5',fpts(mean([2,3,4,5].map(l=>C[l-1]-E[l-1]))),'X seen in the X-only block minus the report block, lags 2–5.'],
+   ['X seen at lag 1 (report / X-only)',`${fpc(E[0])} / ${fpc(C[0])}`,''],
+   ['X seen at lag 8 (report / X-only)',`${fpc(E[7])} / ${fpc(C[7])}`,''],
+   ['White letter correctly identified',fpc(mean(d.filter(x=>x.condition==='experimental').map(x=>x.target_correct))),'Report block.'],
+   ['“X seen” when there was no X (report / X-only)',`${fpc(fa('experimental'))} / ${fpc(fa('control'))}`,'']],
+   chart:{type:'line',unit:'X seen (%)',xLabel:'Position of the X after the white letter (each step = 90 ms)',xs:lags.map(String),yMin:0,yMax:100,series:[{name:'Report block (white letter correct)',values:E.map(v=>v*100),color:'var(--c2)'},{name:'X-only block',values:C.map(v=>v*100),color:'var(--c1)'}]},
+   read:'When you have to report the white letter, the X is often missed if it comes 2–5 letters later. When you ignore the white letter, the X is usually seen.'}}},
+
+/* task 6 */
+din:{mod:'aud',name:'Digits-in-noise test',mech:'Hearing speech in noise',mins:[3,2],speech:true,hp:'Headphones recommended',
+ about:'You hear three spoken digits in background noise. The noise gets louder when you are right and quieter when you are wrong. This finds the noise level at which you get about half right.',
+ steps:['Set a comfortable volume using the sample below.','Listen to three digits, then type them in order and press Enter.','Guess if you are not sure.','The first set repeats, getting easier, until you get it right.'],
+ keys:[['0–9','Digits'],['Backspace','Correct'],['Enter','Submit']],
+ checks:[{label:'Play a sample',async fn(){initAudio();await loadVoices();const stop=noiseOn(dinLevel(0));await new Promise(r=>setTimeout(r,500));const s=say('4, 2, 8',{rate:.95});await s.ended;setTimeout(stop,300)}}],
+ method:['After the first set, the level moves 2 dB harder after a correct answer and 2 dB easier after a mistake, as in the original.','All three digits must be right to count as correct.','The threshold is the average level from set 5 onwards.','Difference from the original: the original used recorded speech and specially shaped noise. Here the browser voice is used, so levels only compare people on the same computer.'],
+ async run(){await needSpeech();setStage('#000000','#ffffff','#8a8a8a');const N=Q(24,16),D=[0,1,2,3,4,5,6,7,8,9];const data=[];
+  setPad([...'1234567890'].map(c=>({key:c,label:c,sm:true})).concat([{key:'Backspace',label:'⌫',sm:true},{key:'Enter',label:'Submit',sub:'Enter'}]));
+  const trip=()=>{const t=[];while(t.length<3){const x=pick(D);if(t[t.length-1]!==x)t.push(x)}return t};
+  const present=async(dg,snr)=>{await show(()=>{clear();lines(['Listen'])});const stop=noiseOn(dinLevel(snr));try{await wait(500);const s=say(dg.join(', '),{rate:.95});await race(s.ended);await wait(300)}finally{stop()}
+   const resp=[];const draw=()=>{clear();lines(['Type the three digits',{t:[0,1,2].map(k=>resp[k]??'_').join('  '),size:.08},{t:'Enter to submit',size:.03,color:SC.dim}])};await show(draw);
+   for(;;){const r=await waitKey([...'0123456789','Backspace','Enter'],null);if(r.key==='Enter'){if(resp.length===3)break}else if(r.key==='Backspace')resp.pop();else if(resp.length<3)resp.push(+r.key);await show(draw)}
+   await show(clear);await wait(400);return resp.join('')};
+  await screen(['Type the three digits you hear','Guess if unsure'],'Start');
+  let snr=-8,dg=trip(),att=0;
+  for(;;){progress(0,N,'Set 1, attempt '+(att+1));const resp=await present(dg,snr);const ok=resp===dg.join('');data.push({phase:'ascending',trial:1,snr_db:snr,digits:dg.join(''),response:resp,correct:ok?1:0});att++;if(ok||att>=12)break;snr+=2}
+  data[data.length-1].phase='adaptive';snr-=2;
+  for(let i=2;i<=N;i++){progress(i-1,N);dg=trip();const resp=await present(dg,snr);const ok=resp===dg.join('');data.push({phase:'adaptive',trial:i,snr_db:snr,digits:dg.join(''),response:resp,correct:ok?1:0});snr+=ok?-2:2;snr=Math.max(-30,Math.min(14,snr))}
+  data.push({phase:'next',trial:N+1,snr_db:snr,digits:'',response:'',correct:null});return data},
+ summarize(d){const ad=d.filter(x=>x.phase==='adaptive'),nx=d.filter(x=>x.phase==='next');const use=ad.filter(x=>x.trial>=5).concat(nx);const srt=mean(use.map(x=>x.snr_db));
+  return{headline:`SRT ${f1(srt,' dB')}`,rows:[
+   ['Threshold',f1(srt,' dB SNR'),'Only comparable on the same computer.'],
+   ['Sets correct',fpc(mean(ad.map(x=>x.correct))),''],
+   ['Attempts on the first set',String(d.filter(x=>x.trial===1).length),''],
+   ['Sets used for the threshold',String(use.length),'Set 5 onwards.']],
+   chart:{type:'line',unit:'SNR (dB, relative)',xLabel:'Triplet',xs:ad.map(x=>String(x.trial)),series:[{name:'SNR',values:ad.map(x=>x.snr_db),color:'var(--c1)'}],marks:ad.map(x=>x.correct),ref:{value:srt,label:'SRT'}},
+   read:'The level should drop quickly, then go up and down around one level. That level is your threshold. Lower is better. Filled dots are correct sets; open dots are mistakes.'}}},
+
+/* task 7 */
+astroop:{mod:'aud',name:'Auditory Stroop',mech:'Interference',mins:[2,1.2],speech:true,hp:'Headphones recommended',
+ about:'You hear the word “high” or “low”, spoken in a high or a low voice. You judge the pitch of the voice and ignore the word.',
+ steps:['Use the buttons below to hear the high and low voice first.','Each trial you hear “high” or “low”.','Judge the pitch of the voice: F for low, J for high.','Be as quick and accurate as you can.'],
+ keys:[['F','Low voice'],['J','High voice']],
+ checks:[{label:'Hear high voice',async fn(){initAudio();await loadVoices();say('day',{pitch:2})}},{label:'Hear low voice',async fn(){initAudio();await loadVoices();say('day',{pitch:.1})}}],
+ method:['The words “high” and “low” are spoken in a high or low voice. You judge the voice, as in the original.','Difference from the original: the original used recordings and spoken answers. Here the browser voice is used and you press keys.'],
+ async run(){await needSpeech();setStage('#000000','#ffffff','#8a8a8a');const reps=Q(12,8),L=[];for(const word of['high','low'])for(const voice of['high','low'])for(let r=0;r<reps;r++)L.push({word,voice});shuffle(L);
+  setPad([{key:'f',label:'Low voice',sub:'F'},{key:'j',label:'High voice',sub:'J'}]);await screen(['Judge the PITCH of the voice','F low · J high'],'Start');const data=[];
+  for(let i=0;i<L.length;i++){const t=L[i];progress(i,L.length);await show(blankFix);await wait(rnd(800,1200));
+   const s=say(t.word,{pitch:t.voice==='high'?2:.1,rate:1});const ts=await race(s.started);const r=await waitKey(['f','j'],3000,ts);await race(s.ended);
+   const correct=r.key===(t.voice==='high'?'j':'f');data.push({condition:t.word===t.voice?'congruent':'incongruent',word:t.word,voice:t.voice,key:r.key,rt:r0(r.rt),correct:correct?1:0});if(!r.key)await note('Too slow');await wait(400)}
+  return data},
+ summarize(d){const ok=d.filter(x=>x.correct&&x.rt>0);const m=c=>mean(ok.filter(x=>x.condition===c).map(x=>x.rt));const e=c=>1-mean(d.filter(x=>x.condition===c).map(x=>x.correct));const C=m('congruent'),I=m('incongruent');
+  return{headline:`interference ${fsg(I-C)}`,rows:[
+   ['Interference (clashing − matching)',fsg(I-C),''],
+   ['Mean RT: matching / clashing',`${fms(C)} / ${fms(I)}`,'Includes a small fixed delay from the browser voice.'],
+   ['Errors: matching / clashing',`${fpc(e('congruent'))} / ${fpc(e('incongruent'))}`,'']],
+   chart:{type:'bar',unit:'Mean RT (ms)',items:[{label:'Matching',value:C,color:'var(--c3)'},{label:'Clashing',value:I,color:'var(--c2)'}]},
+   read:'Responses are usually slower when the word and the voice clash, for example “high” in a low voice.'}}},
+
+/* task 8 */
+distract:{mod:'aud',name:'Auditory–visual oddball task',mech:'Distraction by sounds',mins:[4,2],hp:'Headphones recommended',
+ about:'You decide whether digits are odd or even. A sound plays just before each digit. Usually it is the same tone. Sometimes it is a different tone or an unusual sound. You ignore the sounds.',
+ steps:['Each trial starts with a sound, then a digit appears.','Ignore the sounds.','Press F if the digit is odd and J if it is even.','Be as quick and accurate as you can.'],
+ keys:[['F','Odd'],['J','Even']],
+ checks:[{label:'Standard tone',fn(){initAudio();tone({f:600,dur:.2,at:AC.currentTime+.05,ramp:.01})}},{label:'Deviant tone',fn(){initAudio();tone({f:700,dur:.2,at:AC.currentTime+.05,ramp:.01})}},{label:'A novel sound',fn(){initAudio();novelSound(AC.currentTime+.05)}}],
+ method:['Sounds last 200 ms. 80% are the usual tone (600 Hz), 10% a higher tone (700 Hz) and 10% unusual sounds.','The digit appears 300 ms after the sound starts. A new trial starts every 1.2 seconds.','Difference from the original: the original used recorded everyday sounds (e.g. a door slam). Here the unusual sounds are computer-made.'],
+ async run(){initAudio();setStage('#000000','#ffffff','#8a8a8a');const n=Q(200,100),k=Math.round(n/10);const seq=rareSeq(n,[[1,k],[2,k]],5);const DG=[1,2,3,4,5,6,7,8];
+  setPad([{key:'f',label:'Odd',sub:'F'},{key:'j',label:'Even',sub:'J'}]);await screen(['Odd / even: F odd · J even','Ignore the sounds'],'Start');const data=[];
+  await show(blankFix);await wait(800);let next=AC.currentTime+.2;
+  for(let i=0;i<n;i++){progress(i,n);const dg=pick(DG),ty=seq[i],at=next;let sound='standard';if(ty===1){sound='deviant';tone({f:700,dur:.2,at,ramp:.01})}else if(ty===2)sound='novel:'+novelSound(at);else tone({f:600,dur:.2,at,ramp:.01});
+   const tp=toPerf(at);const td=await showAt(tp+300,()=>{clear();txt(String(dg),{size:.1})});const rp=waitKey(['f','j'],880,td);rp.catch(()=>{});await showAt(td+200,blankFix);const r=await rp;
+   data.push({sound:ty===0?'standard':ty===1?'deviant':'novel',sound_detail:sound,digit:dg,key:r.key,rt:r0(r.rt),correct:r.key===(dg%2?'f':'j')?1:0});next=at+1.2}
+  await wait(500);return data},
+ summarize(d){const ok=d.filter(x=>x.correct&&x.rt>=150);const m=s=>mean(ok.filter(x=>x.sound===s).map(x=>x.rt));const a=s=>mean(d.filter(x=>x.sound===s).map(x=>x.correct));const st=m('standard'),dv=m('deviant'),nv=m('novel');
+  return{headline:`novel ${fsg(nv-st)}`,rows:[
+   ['Slowing after unusual sounds',fsg(nv-st),'Unusual minus usual sound.'],
+   ['Slowing after the higher tone',fsg(dv-st),'Higher minus usual tone.'],
+   ['Mean RT: usual / higher tone / unusual',`${fms(st)} / ${fms(dv)} / ${fms(nv)}`,''],
+   ['Accuracy: usual / higher tone / unusual',`${fpc(a('standard'))} / ${fpc(a('deviant'))} / ${fpc(a('novel'))}`,'']],
+   chart:{type:'bar',unit:'Mean RT (ms)',items:[{label:'Usual tone',value:st,color:'var(--c1)'},{label:'Higher tone',value:dv,color:'var(--c3)'},{label:'Unusual sound',value:nv,color:'var(--c2)'}]},
+   read:'Responses are usually slower after an unusual sound, and a little slower after the higher tone.'}}},
+
+/* task 9 */
+dichotic:{mod:'aud',name:'Dichotic listening task',mech:'Selective listening',mins:[5.5,3],hp:'Headphones required',
+ about:'Short beeps play quickly in both ears: a low beep in the left ear and a high beep in the right. Now and then a beep is slightly higher than usual. You listen to one ear only and press for these higher beeps.',
+ steps:['Put on headphones. Check left and right with the buttons below.','Before each block you are told which ear to listen to.','Press Space for each slightly higher beep in that ear.','Ignore the other ear.'],
+ keys:[['Space','Higher beep in that ear']],
+ checks:[{label:'Left: standard',fn(){initAudio();tone({f:800,dur:.05,at:AC.currentTime+.05,pan:-1})}},{label:'Left: target',fn(){initAudio();tone({f:840,dur:.05,at:AC.currentTime+.05,pan:-1})}},{label:'Right: standard',fn(){initAudio();tone({f:1500,dur:.05,at:AC.currentTime+.05,pan:1})}},{label:'Right: target',fn(){initAudio();tone({f:1560,dur:.05,at:AC.currentTime+.05,pan:1})}}],
+ method:['Beeps last 50 ms. Left ear 800 Hz (target 840 Hz). Right ear 1500 Hz (target 1560 Hz).','About 10% of beeps in each ear are targets.','Beeps come every 250–1250 ms in random order, as in the original.','Difference from the original: people counted targets silently while brain activity was recorded. Here you press a key.'],
+ async run(){initAudio();setStage('#000000','#ffffff','#8a8a8a');const nT=Q(200,100);const blocks=shuffle(['L','R']);const data=[];
+  const seqFor=()=>{const half=nT/2,ev=shuffle([...Array(half).fill('L'),...Array(half).fill('R')]).map(e=>({ear:e,dev:0}));const per=Math.round(half*.1);
+   for(const e of['L','R']){const idx=shuffle(ev.map((v,i)=>v.ear===e&&i>=3&&i<ev.length-1?i:-1).filter(i=>i>=0));let c=0;for(const i of idx){if(c>=per)break;if(ev[i-1].dev||ev[i+1].dev||(ev[i-2]&&ev[i-2].dev))continue;ev[i].dev=1;c++}}return ev};
+  for(const[bi,att]of blocks.entries()){const nm=att==='L'?'LEFT':'RIGHT';
+   setPad([{key:'space',label:'Start',sub:'Space',wide:true}]);await show(()=>{clear();lines([`Block ${bi+1} of 2`,{t:`Attend to the ${nm} ear`,size:.07,weight:700},'Press Space for higher beeps in that ear only'])});await waitKey(['space','Enter'],null);
+   setPad([{key:'space',label:'Target',sub:'Space',wide:true}]);await show(()=>{clear();lines([{t:`Attend ${nm}`,size:.05,weight:700},'+'])});await wait(1000);
+   const ev=seqFor();let t=AC.currentTime+.3;const t0p=toPerf(t);for(const e of ev){e.on=toPerf(t);tone({f:e.ear==='L'?(e.dev?840:800):(e.dev?1560:1500),dur:.05,at:t,pan:e.ear==='L'?-1:1,gain:.22});t+=rnd(.25,1.25)}
+   R.presses=[];let last=-1;await until(ev[ev.length-1].on+1300,()=>{const k=ev.filter(e=>e.on<=performance.now()).length;if(k!==last){last=k;progress(k-1,ev.length,`Block ${bi+1} · ${nm}`)}});
+   let extra=0;for(const p of R.presses.filter(p=>p.key==='space')){const c=ev.filter(e=>p.t-e.on>=150&&p.t-e.on<=1100);const pk=f=>c.filter(f).pop();
+    let e=pk(e=>e.dev&&e.ear===att&&!e.resp);if(!e)e=pk(e=>e.dev&&e.ear!==att&&!e.resp);if(!e)e=pk(e=>!e.dev&&!e.resp);if(e){e.resp=1;e.rt=p.t-e.on}else extra++}
+   ev.forEach((e,i)=>data.push({block:bi+1,attend:att,pip:i+1,ear:e.ear,target:e.dev,attended:e.ear===att?1:0,onset_ms:r0(e.on-t0p),responded:e.resp?1:0,rt:e.resp?r0(e.rt):null,unassigned_presses:i===0?extra:''}))}
+  return data},
+ summarize(d){const tg=d.filter(x=>x.target&&x.attended),ud=d.filter(x=>x.target&&!x.attended),st=d.filter(x=>!x.target);const H=mean(tg.map(x=>x.responded)),F=mean(ud.map(x=>x.responded)),FS=mean(st.map(x=>x.responded));
+  const hc=(tg.filter(x=>x.responded).length+.5)/(tg.length+1),fc=(ud.filter(x=>x.responded).length+.5)/(ud.length+1);const by=e=>mean(tg.filter(x=>x.ear===e).map(x=>x.responded));
+  return{headline:`d′ ${f2(probit(hc)-probit(fc))}`,rows:[
+   ['Targets caught in the attended ear',fpc(H),`${tg.filter(x=>x.responded).length} of ${tg.length}; left ${fpc(by('L'))}, right ${fpc(by('R'))}`],
+   ['Presses to targets in the other ear',fpc(F),`${ud.filter(x=>x.responded).length} of ${ud.length}`],
+   ['Selectivity (d′)',f2(probit(hc)-probit(fc)),''],
+   ['Presses to ordinary beeps',fpc(FS),''],
+   ['Mean RT to caught targets',fms(mean(tg.filter(x=>x.responded).map(x=>x.rt))),'']],
+   chart:{type:'bar',unit:'Responded (%)',yMax:100,items:[{label:'Targets, attended ear',value:H*100,color:'var(--c1)'},{label:'Targets, other ear',value:F*100,color:'var(--c2)'},{label:'Ordinary beeps',value:FS*100,color:'var(--c4)'}]},
+   read:'Most targets in the attended ear are usually caught, and few in the other ear, even though the targets are the same.'}}},
+
+/* task 10 */
+pasat:{mod:'aud',name:'Paced Auditory Serial Addition Test (PASAT)',mech:'Working memory under time pressure',mins:[8,2.5],speech:true,hp:'Headphones recommended',
+ about:'You hear single digits at a steady pace. You add each digit to the one before it and give the answer. The pace gets faster.',
+ steps:['Add each new digit to the digit before it, not to your last answer.','Example: 3, 5, 2 → answers 8, then 7.','Click the answer, or type it and press Enter.','If you miss one, carry on with the next. There is a short practice first.'],
+ keys:[['Click','Sum buttons 2–18'],['Type + Enter','Alternative']],
+ checks:[{label:'Hear the voice',async fn(){initAudio();await loadVoices();say('3. 5. 2.')}}],
+ method:['61 digits per run, at 2.4, 2.0, 1.6 and 1.2 seconds apart, as in the original. Practice first.','Digits 1–9 in random order.','Difference from the original: the original used a fixed recording and spoken answers. Here the browser voice is used and you click or type.'],
+ async run(){await needSpeech();setStage('#000000','#ffffff','#8a8a8a');const paces=Q([2400,2000,1600,1200],[2400,2000]),nD=Q(61,25);const data=[];let buf='',last=null;
+  const block=async(isi,n,label,score)=>{setPad([...Array(17)].map((_,i)=>({key:'s'+(i+2),label:String(i+2),sm:true})));buf='';last=null;const dg=[...Array(n)].map(()=>ri(1,9));const on=[];let cur=0;
+   const draw=()=>{clear();lines([{t:cur<1?'First digit: just listen':'Sum of the last two digits',color:SC.dim},{t:buf?buf+'_':(last!=null?String(last):'·'),size:.1,weight:700}])};
+   R.presses=[];R.onInput=k=>{if(k.startsWith('s')){last=+k.slice(1);requestAnimationFrame(()=>{if(R.running)draw()})}};
+   R.keyHook=(k,t)=>{if(/^[0-9]$/.test(k)){buf=(buf+k).slice(-2);requestAnimationFrame(draw);return true}if(k==='Backspace'){buf=buf.slice(0,-1);requestAnimationFrame(draw);return true}if(k==='Enter'){if(buf){const v=+buf;buf='';R.presses.push({key:'s'+v,t});last=v;requestAnimationFrame(draw)}return true}return false};
+   const start=performance.now()+800;await show(draw);
+   for(let i=0;i<n;i++){progress(i,n,label);await until(start+i*isi);cur=i;last=null;await show(draw);const s=say(String(dg[i]),{rate:isi<1500?1.4:1.15});on.push(await race(s.started))}
+   await until(on[n-1]+isi);R.keyHook=null;R.onInput=null;let correct=0;
+   for(let i=1;i<n;i++){const end=i+1<n?on[i+1]:on[i]+isi;const ps=R.presses.filter(p=>p.key.startsWith('s')&&p.t>=on[i]&&p.t<end);const p=ps[ps.length-1];const ans=p?+p.key.slice(1):null;const ok=ans===dg[i-1]+dg[i];if(ok)correct++;
+    if(score)data.push({pace_s:isi/1000,item:i,previous:dg[i-1],digit:dg[i],correct_sum:dg[i-1]+dg[i],answer:ans,correct:ok?1:0,rt:p?r0(p.t-on[i]):null})}return{correct,n:n-1}};
+  if(!S.quick){await screen(['Practice at 2.4 seconds','Add each digit to the one before it'],'Start practice');const p=await block(2400,11,'Practice',false);await screen([`Practice: ${p.correct} of ${p.n} correct`,'Remember: add to the previous DIGIT, not your answer'],'Continue')}
+  for(const[bi,isi]of paces.entries()){await screen([`Trial ${bi+1} of ${paces.length}`,{t:`One digit every ${isi/1000} seconds`,size:.055,weight:700}],'Start');await block(isi,nD,`${isi/1000} s`,true)}
+  return data},
+ summarize(d){const paces=[...new Set(d.map(x=>x.pace_s))];const pc=p=>d.filter(x=>x.pace_s===p);
+  return{headline:paces.map(p=>`${pc(p).filter(x=>x.correct).length}/${pc(p).length}`).join(', '),rows:paces.map(p=>{const r=pc(p);let dy=0;for(let i=1;i<r.length;i++)if(r[i].correct&&r[i-1].correct)dy++;return[`Correct at ${p} s`,`${r.filter(x=>x.correct).length} of ${r.length}`,`${fpc(mean(r.map(x=>x.correct)))}; ${r.filter(x=>x.answer==null).length} missed; ${dy} dyads`]}).concat([['Total correct',`${d.filter(x=>x.correct).length} of ${d.length}`,'']]),
+   chart:{type:'bar',unit:'Correct (%)',yMax:100,items:paces.map((p,i)=>({label:`${p} s`,value:mean(pc(p).map(x=>x.correct))*100,color:['var(--c1)','var(--c3)','var(--c4)','var(--c2)'][i]}))},
+   read:'Scores usually drop as the pace gets faster. “Dyads” count two correct answers in a row.'}}}
+};
+function dinLevel(snr){return Math.min(.6,.06*Math.pow(10,-snr/20))}
+const ORDER={vis:['posner','stroop','sart','search','blink'],aud:['din','astroop','distract','dichotic','pasat']};
+
+/* ---------- storage ---------- */
+const KEY='attentionBattery.v2';let RESULTS={};
+try{S.device=localStorage.getItem(KEY+'.device')||''}catch(e){S.device=''}
+function setDevice(d){S.device=d;try{localStorage.setItem(KEY+'.device',d)}catch(e){}document.body.classList.toggle('phone',d==='phone');renderDevice();renderMenu()}
+function renderDevice(){const el=$('#device');$('#lists').hidden=!S.device;document.body.classList.toggle('phone',S.device==='phone');
+  if(!S.device){el.innerHTML='<div class="device"><strong>What are you using?</strong><div class="row"><button type="button" class="btn" id="d-desk">Laptop or computer with keyboard</button><button type="button" class="btn" id="d-phone">Phone or tablet</button></div></div>';$('#d-desk').onclick=()=>setDevice('desktop');$('#d-phone').onclick=()=>setDevice('phone')}
+  else{el.innerHTML=`<p class="small muted">Using: ${S.device==='phone'?'phone or tablet (tap the on-screen buttons; turn it sideways for each task)':'laptop or computer with keyboard'} · <button type="button" class="link" id="d-change">Change</button></p>`;$('#d-change').onclick=()=>setDevice('')}}
+try{RESULTS=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){RESULTS={}}
+function saveResults(){try{localStorage.setItem(KEY,JSON.stringify(RESULTS))}catch(e){}}
+
+/* ---------- views ---------- */
+function view(id){for(const v of['v-menu','v-instr','v-result'])$('#'+v).hidden=v!==id;$('#v-run').hidden=id!=='v-run';if(id!=='v-run')window.scrollTo(0,0)}
+const minsOf=T=>`~${T.mins[0]} min`;
+const quickOf=T=>`~${T.mins[1]} min`;
+function renderMenu(){for(const mod of['vis','aud']){const ul=$('#list-'+mod);ul.innerHTML='';for(const id of ORDER[mod]){const T=TASKS[id],res=RESULTS[id];let sum=null;if(res){try{sum=T.summarize(res.data)}catch(e){}}
+  const li=document.createElement('li');li.innerHTML=`<button type="button"><span class="tname">${esc(T.name)}</span><span class="tside">${minsOf(T)} · quick ${quickOf(T)}${T.hp?'<br>headphones':''}</span>${sum?'<span class="tsub"><span class="done">Completed</span></span>':''}</button>`;
+  li.querySelector('button').onclick=()=>openTask(id);ul.append(li)}}}
+
+function openTask(id){const T=TASKS[id],el=$('#v-instr');const ok=!T.speech||('speechSynthesis' in window);
+  el.innerHTML=`<p><button type="button" class="link" id="i-back">← All tasks</button></p>
+  <h1>${esc(T.name)}</h1><p class="muted">${esc(T.mech)} · full ${minsOf(T)}, quick demo ${quickOf(T)}</p>
+  <p>${esc(T.about)}</p>
+  <h2>Instructions</h2><ol class="steps">${T.steps.map(s=>`<li>${esc(tx(s))}</li>`).join('')}</ol>
+  ${S.device==='phone'?'<p>Respond by tapping the buttons at the bottom of the screen. Turn your phone or tablet sideways when the task starts.</p>':`<p>${T.keys.map(([k,l])=>`<kbd>${esc(k)}</kbd> ${esc(l)}`).join(' &nbsp; ')}</p>`}
+  ${T.hp?`<p class="warn">${esc(T.hp)}.</p>`:''}
+  ${S.device==='phone'&&T.mod==='aud'?'<p class="warn">Turn off silent mode and turn the volume up.</p>':''}
+  ${S.device==='phone'&&id==='distract'?'<p class="warn">Use wired headphones or the phone speaker, not Bluetooth earbuds. Bluetooth delays the sound, which changes the sound-to-digit timing this task depends on.</p>':''}
+  ${T.checks?`<div class="row"><span class="muted small">Sound check:</span>${T.checks.map((c,i)=>`<button type="button" class="btn" data-check="${i}">${esc(c.label)}</button>`).join('')}</div>${T.speech?'<p class="muted small" id="voice-name"></p>':''}`:''}
+  ${ok?'':'<p class="warn">This browser has no built-in speech voice, so this task cannot run here. Try Chrome, Edge or Safari.</p>'}
+  <div class="row"><button type="button" class="btn primary" id="i-start" ${ok?'':'disabled'}>Start full task (${minsOf(T)})</button><button type="button" class="btn" id="i-quick" ${ok?'':'disabled'}>Start quick demo (${quickOf(T)})</button><span class="muted small">${S.device==='phone'?'Tap Stop at the top of the screen to end a task early.':'Esc stops the task at any point.'}</span></div>
+  <h2>Method</h2><ul class="small">${T.method.map(m=>`<li>${esc(m)}</li>`).join('')}</ul>`;
+  view('v-instr');$('#i-back').onclick=()=>{renderMenu();view('v-menu')};$('#i-start').onclick=()=>{S.quick=false;runTask(id)};$('#i-quick').onclick=()=>{S.quick=true;runTask(id)};
+  el.querySelectorAll('[data-check]').forEach(b=>b.onclick=async()=>{try{await T.checks[+b.dataset.check].fn()}catch(e){}const v=$('#voice-name');if(v&&VOICE)v.textContent=`Voice: ${VOICE.name}`});
+  if(T.speech&&'speechSynthesis' in window)loadVoices().then(v=>{const n=$('#voice-name');if(n&&v)n.textContent=`Voice: ${v.name}`})}
+
+async function runTask(id){const T=TASKS[id];
+  R.running=true;R.aborted=false;R.pending.clear();R.presses=[];R.waiter=null;R.keyHook=null;R.onInput=null;R.abortP=new Promise((_,rej)=>R.abortRej=rej);R.abortP.catch(()=>{});
+  try{if(T.mod==='aud')initAudio()}catch(e){}
+  $('#run-name').textContent=T.name;$('#run-stop').textContent=S.device==='phone'?'Stop':'Stop (Esc)';$('#run-prog').textContent='';$('#pad').innerHTML='';setStage('#000000','#ffffff','#8a8a8a');view('v-run');document.body.classList.add('running');
+  let wl=null;try{if(navigator.wakeLock)wl=await navigator.wakeLock.request('screen')}catch(e){}
+  if(S.device==='phone'){while(window.innerHeight>window.innerWidth&&!R.aborted){await new Promise(r=>{const h=()=>{window.removeEventListener('resize',h);r()};window.addEventListener('resize',h);setTimeout(h,500)})}}
+  await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));sizeCanvas();clear();R.wl=wl;
+  try{const data=await T.run();R.running=false;RESULTS[id]={data,mode:S.quick?'quick':'full',device:S.device||'',pid:S.pid,at:new Date().toISOString()};saveResults();showResult(id)}
+  catch(e){R.running=false;try{speechSynthesis.cancel()}catch(x){}resetMaster();openTask(id);if(!(e instanceof Stop)){const w=document.createElement('p');w.className='warn';w.textContent='The task stopped: '+(e&&e.message||e);$('#v-instr').prepend(w)}}
+  finally{R.running=false;R.keyHook=null;R.onInput=null;document.body.classList.remove('running');try{R.wl&&R.wl.release()}catch(e){}R.wl=null}}
+
+/* ---------- chart ---------- */
+function niceStep(range,n){const raw=range/n||1,mag=10**Math.floor(Math.log10(raw)),r=raw/mag;return(r<1.5?1:r<3?2:r<7?5:10)*mag}
+function chartSVG(c){const W=Math.round(Math.max(340,Math.min(600,($('.wrap').clientWidth||600)-32))),H=270,pl=56,pr=16,pt=16,pb=c.type==='line'?54:40,iw=W-pl-pr,ih=H-pt-pb;
+  const vals=fin(c.type==='bar'?c.items.map(i=>i.value):c.series.flatMap(s=>s.values));if(!vals.length)return'<p class="muted">Not enough data for a chart.</p>';
+  let lo=c.yMin??(c.type==='bar'?0:Math.min(...vals)),hi=c.yMax??Math.max(...vals);if(hi-lo<1e-9)hi=lo+1;const step=niceStep(hi-lo,4);
+  if(c.yMin==null&&c.type!=='bar')lo=Math.floor(lo/step)*step-(Math.floor(lo/step)*step===Math.min(...vals)?step:0);if(c.yMax==null)hi=Math.ceil(hi/step)*step;if(hi<=lo)hi=lo+step;
+  const y=v=>pt+ih-(v-lo)/(hi-lo)*ih;let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.unit)}">`;
+  for(let v=lo;v<=hi+1e-9;v+=step){const yy=y(v);s+=`<line x1="${pl}" x2="${W-pr}" y1="${yy}" y2="${yy}" style="stroke:var(--line)"/><text x="${pl-8}" y="${yy}" text-anchor="end" dominant-baseline="middle" style="fill:var(--muted);font-size:12px">${Math.round(v*10)/10}</text>`}
+  s+=`<text x="13" y="${pt+ih/2}" transform="rotate(-90 13 ${pt+ih/2})" text-anchor="middle" style="fill:var(--muted);font-size:12px">${esc(c.unit)}</text>`;
+  if(c.type==='bar'){const n=c.items.length,slot=iw/n,bw=Math.min(70,slot*.5);c.items.forEach((it,i)=>{const x=pl+slot*(i+.5);if(Number.isFinite(it.value)){const y0=y(Math.max(lo,0)),y1=y(it.value);s+=`<rect x="${x-bw/2}" y="${Math.min(y0,y1)}" width="${bw}" height="${Math.abs(y0-y1)}" style="fill:${it.color}"/><text x="${x}" y="${y1-6}" text-anchor="middle" style="fill:var(--fg);font-size:12px">${Math.round(it.value)}</text>`}s+=`<text x="${x}" y="${H-pb+18}" text-anchor="middle" style="fill:var(--fg);font-size:13px">${esc(it.label)}</text>`})}
+  else{const n=c.xs.length,x=i=>n===1?pl+iw/2:pl+22+i*(iw-44)/(n-1);const every=n>12?Math.ceil(n/12):1;c.xs.forEach((l,i)=>{if(i%every===0||i===n-1)s+=`<text x="${x(i)}" y="${H-pb+17}" text-anchor="middle" style="fill:var(--muted);font-size:12px">${esc(l)}</text>`});
+   s+=`<text x="${pl+iw/2}" y="${H-8}" text-anchor="middle" style="fill:var(--muted);font-size:12px">${esc(c.xLabel||'')}</text>`;
+   for(const se of c.series){let p='',pen=false;se.values.forEach((v,i)=>{if(Number.isFinite(v)){p+=(pen?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1)+' ';pen=true}else pen=false});s+=`<path d="${p}" fill="none" style="stroke:${se.color}" stroke-width="2"/>`;
+    se.values.forEach((v,i)=>{if(!Number.isFinite(v))return;const open=c.marks&&c.marks[i]===0;s+=`<circle cx="${x(i)}" cy="${y(v)}" r="${n>16?3.5:4.5}" style="fill:${open?'var(--bg)':se.color};stroke:${se.color}" stroke-width="2"/>`})}}
+  if(c.ref&&Number.isFinite(c.ref.value)){const yy=y(c.ref.value);s+=`<line x1="${pl}" x2="${W-pr}" y1="${yy}" y2="${yy}" style="stroke:var(--c2)" stroke-width="1.5" stroke-dasharray="6 4"/><text x="${W-pr}" y="${yy-6}" text-anchor="end" style="fill:var(--c2);font-size:12px">${esc(c.ref.label)} ${f1(c.ref.value,' dB')}</text>`}
+  return s+'</svg>'+(c.type==='line'&&c.series.length>1?`<div class="legend">${c.series.map(se=>`<span><i style="background:${se.color}"></i>${esc(se.name)}</span>`).join('')}</div>`:'')}
+
+/* ---------- results + CSV ---------- */
+function toCSV(ids){const rows=[];for(const id of ids){const r=RESULTS[id];if(!r)continue;r.data.forEach((d,i)=>rows.push({task:id,mode:r.mode,device:r.device||'',completed:r.at,row:i+1,...d}))}
+  if(!rows.length)return'';const cols=[];for(const r of rows)for(const k of Object.keys(r))if(!cols.includes(k))cols.push(k);
+  const q=v=>v==null?'':/[",\n]/.test(String(v))?`"${String(v).replace(/"/g,'""')}"`:String(v);return[cols.join(','),...rows.map(r=>cols.map(c=>q(r[c])).join(','))].join('\n')}
+function copyCSV(text,btn,area){const o=btn.textContent;if(!text){btn.textContent='No data yet';setTimeout(()=>btn.textContent=o,1600);return}
+  const fb=()=>{area.hidden=false;area.value=text;area.focus();area.select();btn.textContent='Select all and copy below';setTimeout(()=>btn.textContent=o,2500)};
+  try{navigator.clipboard.writeText(text).then(()=>{btn.textContent='Copied';setTimeout(()=>btn.textContent=o,1600)},fb)}catch(e){fb()}}
+
+
+const KEYFX={posner:'Key effect: benefit and cost of the arrow',stroop:'Key effect: Stroop interference',sart:'Key effect: presses to the 3',search:'Key effect: search time and number of letters',blink:'Key effect: the attentional blink',din:'Key effect: your threshold in noise',astroop:'Key effect: auditory Stroop interference',distract:'Key effect: slowing after unusual sounds',dichotic:'Key effect: listening to one ear',pasat:'Key effect: score as the pace gets faster'};
+function showResult(id){const T=TASKS[id],r=RESULTS[id],s=T.summarize(r.data),el=$('#v-result');const csv=toCSV([id]);
+  el.innerHTML=`<p><button type="button" class="link" id="r-back">← All tasks</button></p>
+  <h1>${esc(T.name)}: results</h1><p class="muted">${r.mode==='quick'?'Quick demo':'Full length'}${r.pid?' · '+esc(r.pid):''}</p>
+  <h2>${esc(KEYFX[id])}</h2>
+  <div class="chart">${chartSVG(s.chart)}</div>
+  <h2>Measures</h2>
+  <div class="tablewrap"><table><thead><tr><th>Measure</th><th>Value</th><th>Note</th></tr></thead><tbody>${s.rows.map(([a,b,c])=>`<tr><td>${esc(a)}</td><td class="num">${esc(b)}</td><td class="muted">${esc(c)}</td></tr>`).join('')}</tbody></table></div>
+  <p style="margin-top:14px">${esc(s.read)}</p>
+  <div class="row"><button type="button" class="btn primary" id="r-menu">Back to tasks</button><button type="button" class="btn" id="r-again">Run again</button><button type="button" class="btn" id="r-copy">Copy data (CSV)</button></div>
+  <textarea class="dump" id="r-dump" hidden readonly aria-label="Task data as CSV"></textarea>
+  <details><summary>Trial data (${r.data.length} rows)</summary><textarea class="dump" readonly aria-label="Trial data" style="margin-top:8px">${esc(csv)}</textarea></details>`;
+  view('v-result');$('#r-back').onclick=$('#r-menu').onclick=()=>{renderMenu();view('v-menu')};$('#r-again').onclick=()=>openTask(id);$('#r-copy').onclick=()=>copyCSV(csv,$('#r-copy'),$('#r-dump'))}
+
+renderDevice();renderMenu();
+</script>
+
+</body></html>
